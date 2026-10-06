@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerController))]
 public class PlayerAttackController : MonoBehaviour
@@ -9,6 +10,8 @@ public class PlayerAttackController : MonoBehaviour
     public GameObject m_bulletPrefab;
 
     public float m_attackSpeed;
+
+    Vector3 aimPosition;
 
     public enum m_FireMode
     {
@@ -32,18 +35,23 @@ public class PlayerAttackController : MonoBehaviour
 
     void PlayerInput()
     {
-        Vector3 aimPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+       // Vector3 aimPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         aimPosition.z = 0;
 
-        Vector3 aimDirection = aimPosition - transform.position;
+        // Vector3 aimDirection = aimPosition - transform.position;
 
-        aimDirection = aimDirection.normalized;
+        Vector3 aimDirection = aimPosition.normalized;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (aimPosition != Vector3.zero)
         {
             SpawnBullet(aimDirection);
         }
+    }
+
+    public void OnAttack(InputValue value)
+    {
+        aimPosition = value.Get<Vector2>();
     }
 
     void SpawnBullet(Vector3 aimDirection)

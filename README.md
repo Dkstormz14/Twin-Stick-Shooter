@@ -1,2 +1,3 @@
 # Twin-Stick-Shooter
-Project started in week 1 seminar of this module
+
+This is a 2d Unity project i created during my Mobile game development module during my time at university
